@@ -8,17 +8,19 @@ import (
 	"time"
 
 	"github.com/libp2p/go-libp2p"
-	circuit "github.com/libp2p/go-libp2p-circuit"
+
 	"github.com/libp2p/go-libp2p-core/host"
 	"github.com/libp2p/go-libp2p-core/network"
 	"github.com/libp2p/go-libp2p-core/peer"
 	"github.com/libp2p/go-libp2p-core/peerstore"
 	"github.com/libp2p/go-libp2p-testing/race"
+
+	relayv1 "github.com/libp2p/go-libp2p/p2p/protocol/circuitv1/relay"
 	"github.com/libp2p/go-libp2p/p2p/protocol/holepunch"
 	holepunch_pb "github.com/libp2p/go-libp2p/p2p/protocol/holepunch/pb"
 	"github.com/libp2p/go-libp2p/p2p/protocol/identify"
-	"github.com/libp2p/go-msgio/protoio"
 
+	"github.com/libp2p/go-msgio/protoio"
 	ma "github.com/multiformats/go-multiaddr"
 	manet "github.com/multiformats/go-multiaddr/net"
 
@@ -328,7 +330,7 @@ func makeRelayedHosts(t *testing.T, h1Opt holepunch.Option, addHolePuncher bool)
 	)
 	require.NoError(t, err)
 
-	_, err = circuit.NewRelay(context.Background(), relay, nil, circuit.OptHop)
+	_, err = relayv1.NewRelay(relay)
 	require.NoError(t, err)
 
 	h2 = mkHostWithStaticAutoRelay(t, context.Background(), relay)
