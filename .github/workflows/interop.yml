@@ -24,8 +24,9 @@ jobs:
           path: 'libp2p'
       - uses: actions/checkout@v2
         with:
-          repository: 'libp2p/go-libp2p-daemon'
+          repository: 'xprazak2/go-libp2p-daemon'
           path: 'daemon'
+          ref: 'relay-opts'
       - uses: actions/checkout@v2
         with:
           repository: 'libp2p/interop'
